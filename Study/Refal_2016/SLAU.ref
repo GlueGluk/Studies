@@ -1,0 +1,245 @@
+SLAU start
+ entry go
+ extrn NUMB, SYMB, OPNGET, LIBGET, OPNPUT, LIBPUT, CLSGET, CLSPUT
+ extrn ADD, DR, SUB, PRINT, CARD, MUL, DIV
+ extrn CP, DG, BR, RP, DGALL
+  
+go = <st><main <libget>/1/>
+		  
+st = <opnget './test.txt'><opnput './out.txt'>
+		  
+main  e(' ')1S(N)A  = <LIBPUT 'END'><solut1 '1'><o_free <DG '0'>><DGALL><clsget>
+	 e1S(N)A = <o_put <vyr e1>SA>
+	 
+o_free e(' ')1 = 
+       e1 = <libput 'Free variables: '<o_vars e1>>
+
+o_vars1 e1 = <libput 'To o_vars: 'e1><o_vars e1>
+
+o_vars SASBe1 = SA', '<o_vars SBe1>
+       e1 = e1
+	 
+vyr 'Err'e1 = 'Err'
+    e1 = <exprss <solve <cut_d <canon1 <int_v <coef1 <bracketss e1>>>>>>>
+	
+o_put1 e1S(N)A = <libput 'To o_put: 'e1><o_put e1SA>
+
+o_put e(' ')1S(N)A = <out1 'nil'SA><chck <libget><ADD (/1/)SA>>
+      'Err'e1S(N)A = 'Err'
+      e1SA = <out1 e1SA><chck <libget><ADD (/1/)SA>>
+     
+out1 e1S(N)A = <LIBPUT 'Result: 'e1><BR <SYMB SA>'='e1>
+     
+chck S(N)A = <main <libget>SA>
+     e1 = <main e1>
+	 
+p_cnt e1(e2'|'e3'|'SA)e4 = <BR '0='<s_a_a (SA)<DG '0'>>><p_cnt e4>
+      e1 = 
+	  
+s_a_a (SA)e1SAe2 = e1SAe2
+      (SA)e1 = e1SA
+	 
+int_v1 e1 = <libput 'To int_v: 'e1><int_v e1>
+	  
+int_v S(D)Ze(D)1'*'S(L)BS('+-=')Ae2 = (SZe1'|1|'SB)<int_v SAe2>
+      '+'e(D)1'*'S(L)BS('+-=')Ae2 = (e1'|1|'SB)<int_v SAe2>
+      '-'e(D)1'*'S(L)BS('+-=')Ae2 = ('-'e1'|1|'SB)<int_v SAe2>
+      S(L)BS('+-=')Ae2 = ('1|1|'SB)<int_v SAe2>
+      '+'S(L)BS('+-=')Ae2 = ('1|1|'SB)<int_v SAe2>
+      '-'S(L)BS('+-=')Ae2 = ('-1|1|'SB)<int_v SAe2>
+      e(D)1'/'e(D)3'*'S(L)BS('+-=')Ae2 = (e1'|'e3'|'SB)<int_v SAe2>
+      '+'e(D)1'/'e(D)3'*'S(L)BS('+-=')Ae2 = (e1'|'e3'|'SB)<int_v SAe2>
+      '-'e(D)1'/'e(D)3'*'S(L)BS('+-=')Ae2 = ('-'e1'|'e3'|'SB)<int_v SAe2>
+      S(D)Ze(D)1S('+-=')Ae2 = (SZe1'|1|nil')<int_v SAe2>
+      '+'e(D)1S('+-=')Ae2 = (e1'|1|nil')<int_v SAe2>
+      '-'e(D)1S('+-=')Ae2 = ('-'e1'|1|nil')<int_v SAe2>
+      e(D)1'/'e(D)3S('+-=')Ae2 = (e1'|1|'e3)<int_v SAe2>
+      '+'e(D)1'/'e(D)3S('+-=')Ae2 = (e1'|1|'e3)<int_v SAe2>
+      '-'e(D)1'/'e(D)3S('+-=')Ae2 = ('-'e1'|1|'e3)<int_v SAe2>
+	  e(' ')2'='e1 = <neg_v e1>
+	  e1 = <err ' '>
+	  
+neg_v1 e1 = <libput 'To neg_v: 'e1><neg_v e1>
+	  
+neg_v e1'='e2 = <err 'Too many ='>
+	  S(D)Ze(D)1'*'S(L)BS('+-')Ae2 = ('-'SZe1'|1|'SB)<neg_v SAe2>
+      '+'S(D)Ze(D)1'*'S(L)BS('+-')Ae2 = ('-'SZe1'|1|'SB)<neg_v SAe2>
+      '-'S(D)Ze(D)1'*'S(L)BS('+-')Ae2 = (SZe1'|1|'SB)<neg_v SAe2>
+	  S(L)BS('+-=')Ae2 = ('-1|1|'SB)<neg_v SAe2>
+      '+'S(L)BS('+-=')Ae2 = ('-1|1|'SB)<neg_v SAe2>
+      '-'S(L)BS('+-=')Ae2 = ('1|1|'SB)<neg_v SAe2>
+      S(D)Ze(D)1'/'e(D)3'*'S(L)BS('+-')Ae2 = ('-'SZe1'|'e3'|'SB)<neg_v SAe2>
+      '+'S(D)Ze(D)1'/'e(D)3'*'S(L)BS('+-')Ae2 = ('-'SZe1'|'e3'|'SB)<neg_v SAe2>
+      '-'S(D)Ze(D)1'/'e(D)3'*'S(L)BS('+-')Ae2 = (SZe1'|'e3'|'SB)<neg_v SAe2>
+      S(D)Ze(D)1S('+-')Ae2 = ('-'SZe1'|1|nil')<neg_v SAe2>
+      '+'S(D)Ze(D)1S('+-')Ae2 = ('-'SZe1'|1|nil')<neg_v SAe2>
+      '-'S(D)Ze(D)1S('+-')Ae2 = (SZe1'|1|nil')<neg_v SAe2>
+      S(D)Ze(D)1'/'e(D)3S('+-')Ae2 = ('-'SZe1'|1|'e3)<neg_v SAe2>
+      '+'S(D)Ze(D)1'/'e(D)3S('+-')Ae2 = ('-'SZe1'|1|'e3)<neg_v SAe2>
+      '-'S(D)Ze(D)1'/'e(D)3S('+-')Ae2 = (SZe1'|1|'e3)<neg_v SAe2>
+	  S(D)Ze(D)1e(' ')2 = ('-'SZe1'|1|nil')
+	  '+'S(D)Ze(D)1e(' ')2 = ('-'SZe1'|1|nil')
+	  '-'S(D)Ze(D)1e(' ')2 = (SZe1'|1|nil')
+	  S(L)Be(' ')2 = ('-1|1|'SB)
+      '+'S(L)Be(' ')2 = ('-1|1|'SB)
+      '-'S(L)Be(' ')2 = ('1|1|'SB)
+	  S(D)Ze(D)1'*'S(L)Ae(' ')2 = (SZe1'|1|'SA)
+	  '-'S(D)Ze(D)1'*'S(L)Ae(' ')2 = (SZe1'|1|nil')
+	  '-'S(D)Ze(D)1'*'S(L)Ae(' ')2 = (SZe1'|1|nil')
+	  e1 = <err 'Unmatched ~'e1'~'>
+	  
+*coef11 e1 = <libput 'To coef1 from brs: 'e1><coef1 e1>
+	  
+coef1 e1e(D)2'/'e(D)3'*'S(D)Ze(D)4S((D))Ae5 = <coef1 e1<cnt '*'e2'*'SZe4>'/'e3SAe5>
+      e1e(D)2'/'e(D)3'*'S(D)Ze(D)4 = <coef1 e1<cnt '*'e2'*'SZe4>'/'e3>
+      e1e(D)2'/'e(D)3'/'e(D)4S((D))Ae5 = <coef1 e1e2'/'<cnt '*'e3'*'e4>SAe5>
+      e1e(D)2'/'e(D)3'/'e(D)4 = <coef1 e1e2'/'<cnt '*'e3'*'e4>>
+      e1e(D)2'*'S(D)Ze(D)3S((D))Ae4 = <coef1 e1<cnt '*'e2'*'SZe3>SAe4>
+      e1e(D)2'*'S(D)Ze(D)3e(' ')4 = <coef1 e1<cnt '*'e2'*'SZe3>>
+	  e1 = e1
+	  
+bracketss e1 = <LIBPUT 'str got: 'e1><brackets e1>	  
+	
+brackets  e1')'e2 = <brackets <f_slv e1>e2>
+	      e1'('e2 = <err 'No closing bracket'>
+	           e1 = e1
+	
+f_slv R e1'('e2 = e1<calc <coef1 e2>>
+	         e1 = <err 'No opening bracket'>
+			 
+*calc1 e1 = <libput 'To calc: 'e1><calc e1> 
+	  
+calc  e(D)1S('+-')Ae(('+-'))2S('+-')Be3 = <calc <cnt SAe1SAe2>SBe3>
+      e(D)1S('+-')Ae(('+-'))2 = <calc <cnt SAe1SAe2>>
+	  					e1 = e1	  
+						
+canon1 e1 = <p_cnt e1><canon e1>
+	  
+canon e1('-0|'e2'|'e3)e4 = <canon e1('0|'e2'|'e3)e4>
+      e1('0|'e2'|'SA)e3 = <canon e1e3>
+      e1(e2'|'e3'|'e4)e5(e6'|'e7'|'e4)e8 = <canon e1<sum_intr (e2'|'e3'|'e4)(e6'|'e7'|'e4)>e5e8>
+      e1 = e1
+      
+cut_d1 e1 = <LIBPUT 'To cut_d: 'e1><cut_d e1>
+     
+cut_d (e1'|'e2'|'e3)e4 = <NOD (e1'|'e2'|'e3)><cut_d e4>
+        = 
+      e1 = <err 'Wrong in cut'>
+
+sum_intr1 e1 = <libput 'To sum_intr: 'e1><sum_intr e1>
+
+sum_intr (e1'|'e2'|'e3)(e4'|'e5'|'e3) = <NOD (<add1 (<mul1 (e1)e5>)<mul1(e4)e2>>'|'<mul1 (e2)e5>'|'e3)>
+
+NOD1 e1 = <LIBPUT 'To NOD: 'e1><NOD e1>
+
+NOD ('0|'e1'|'e2) = ('0|'e1'|'e2)
+    (e('-')1e(D)5'|'e('-')2e(D)4'|'e3) = (<SYMB <DIV (<NUMB e1e5>)<e_st <ord <NUMB e5><NUMB e4>>>>>'|'<SYMB <DIV (<NUMB e2e4>)<e_st <ord <NUMB e5><NUMB e4>>>>>'|'e3)
+
+ord SASB = <max <SUB (SA)SB>SASB>
+    e1 = <err 'Not ord'>
+
+max '-'SASBSC = (SC)SB
+	SASBSC = (SB)SC
+
+e_st (e1)e2 = <evkl (e2)<DR (e1)e2>>
+
+evkl (SA)e2(/0/) = SA
+     (e1)e2(e3) = <evkl (e3)<DR (e1)e3>>
+
+cnt   S('*')Ae1S('*')A = e1SA
+      S('*')Ae1S('*')Ae2 = <mul1 (e1)e2>
+      S('+')Ae(D)1'/'e(D)3S('+')Ae(D)2'/'e(D)4 = <add1 (<mul1 (e1)e4>)<mul1 (e2)e3>>'/'<mul1 (e3)e4>
+      S('+')Ae(D)1'/'e(D)3S('+')Ae(D)2 = <add1 (e1)<mul1 (e2)e3>>'/'e3
+      S('+')Ae(D)1S('+')Ae(D)2'/'e(D)3 = <add1 (<mul1 (e1)e3>)e2>'/'e3
+      S('+')Ae1S('+')Ae2 = <add1 (e1)e2>
+      S('-')Ae(D)1'/'e(D)3S('-')Ae(D)2'/'e(D)4 = <sub1 (<mul1(e1)e4>)<mul1 (e2)e3>>'/'<mul1 (e3)e4>
+      S('-')Ae(D)1'/'e(D)3S('-')Ae(D)2 = <sub1 (e1)<mul1 (e2)e3>>'/'e3
+      S('-')Ae(D)1S('-')Ae(D)2'/'e(D)3 = <sub1 (<mul1 (e1)e3>)e2>'/'e3
+      S('-')Ae1S('-')Ae2 = <sub1 (e1)e2>
+	  
+add11 e1 = <LIBPUT 'To add: 'e1><add1 e1> 
+	  
+add1 (e1)e2 = <SYMB <ADD (<NUMB e1>)<NUMB e2>>>
+     
+sub1 (e1)e2 = <SYMB <SUB (<NUMB e1>)<NUMB e2>>>
+     
+mul11 e1 = <LIBPUT 'To mul: 'e1><mul1 e1>
+     
+mul1 (e1)e2 = <SYMB <MUL (<NUMB e1>)<NUMB e2>>>
+
+solve1 e1 = <LIBPUT 'To solve: 'e1><solve e1>
+	  
+solve e1 = <podst e1'1'>
+
+podst1 e1 = <LIBPUT 'To podst: 'e1><podst e1>
+	  
+podst ('0|'e2'|nil')e(D)3 = <libput 'Found 0=0'>
+      (e1'|'e2'|nil')e(D)3 = <LIBPUT 'No solution'><err 'No solution'>
+      e((D))1e(D)2 = <ch_kop '{'<CP e2>'}'e1e2>
+      e1 = <err 'Wrong in podst'>
+      
+ch_kop1 e1 = <LIBPUT 'To ch_kop :'e1><ch_kop e1>
+
+ch_kop '{'e(' ')1'}'e((D))2e(D)3 = e2
+       '{'e1'}'e((D))2e(D)3 = <podst <rplc '{'e1'}'e2><add1 ('1')e3>>
+	  
+rplc '{'(e1'|'e2'|'SA)e3'}'e4(e5'|'e6'|'SA)e7 = <canon1 <chng e1(e2)e5(e6)e3>e4e7>
+	  '{'e1'}'e2 = e2
+	  
+chng1 e1 = <LIBPUT 'To chng: 'e1><chng e1>
+	  
+chng e1(e2)e3(e4)(e5'|'e6'|'e7)e8 = <n_o <NOD (<mul1 ('-1')<mul3 (e2)e3(e5)>>'|'<mul3 (e1)e4(e6)>'|'e7)>><chng e1(e2)e3(e4)e8>
+     e1(e2)e3(e4)e(' ')5 = 
+     
+mul3 (e1)e2(e3) = <mul1 (e1)<mul1 (e2)e3>>
+
+n_o1 e1 = <libput 'To n_o: 'e1><n_o e1>
+	 
+n_o (e1'|-'e2'|'e3) = (<mul1 ('-1')e1>'|'e2'|'e3)
+    e1 = e1
+	
+exprss (e1'|'e2'|nil')(e3'|'e4'|'e5)e6e(' ')7 = (e3'|'e4'|'e5)e6(e1'|'e2'|nil')
+        e1 = e1
+		
+solut1 e1 = <LIBPUT 'To solut: 'e1><solut e1>
+		
+solut e(D)1 = <n_chck <DG e1>e1>
+
+n_chck1 e1 = <libput 'To n_chck: 'e1><n_chck e1>
+
+n_chck e(' ')1e(D)2 = 
+       e(' ')1'nil'e(D)2 = <solut <add1 ('1')e2>>
+       e((D))1e(D)2 = <pr_res <podst e1<add1 ('1')e2>>><solut <add1 ('1')e2>>
+	   
+pr_res1 e1 = <libput 'To pr_res: 'e1><pr_res e1>
+	   
+pr_res (e1'|'e2'|'SA)e3 = <cout ('1|1|'SA)<g_red (e1)e2e3>>
+       (e3'|'e4'|nil')(e1'|'e2'|'SA)e5 = <cout ('1|1|'SA)<g_red (e1)e2(e3'|'e4'|nil')e5>>
+	   e1 = <err 'Someting went wrong, it is not solved: 'e1>
+	   
+g_red (e1)e2(e3'|'e4'|'e5)e6 = <n_o <NOD (<mul3 ('-1')e3(e2)>'|'<mul1 (e4)e1>'|'e5)>><g_red (e1)e2e6>
+      (e1)e('-')2e(D)3 = 
+		
+cout ('1|1|'SA)e1 = <libput 'Final res:    'SA'='<prnt e1>><BR '0='<cross (SA)<DG '0'>>>
+     e1 = <err 'Not solved'>
+	 
+cross (SA)e1SAe2 = e1e2
+	 
+*prnt1 e1 = <libput 'To print: 'e1><prnt e1>
+		
+prnt   ('0|'e1'|'e2)e(' ')3 = '0'
+       ('0|'e1'|'e2)e3 = <prnt e3>
+       (e1'|1|'SA)e(' ')3 = e1'*'SA
+       (e1'|'e2'|'SA)e(' ')3 = e1'/'e2'*'SA
+	   (e1'|1|nil')e(' ')3 = e1
+	   (e1'|'e2'|nil')e(' ')3 = e1'/'e2
+	   (e1'|1|'SA)e3 = e1'*'SA'+'<prnt e3>
+	   (e1'|'e2'|'SA)e3 = e1'/'e2'*'SA'+'<prnt e3>
+	   (e1'|1|nil')e3 = e1'+'<prnt e3>
+	   (e1'|'e2'|nil')e3 = e1'/'e2'+'<prnt e3>
+		
+err e(' ')1 = 
+	e1 = <PRINT 'Error: 'e1>
+
+ end
+
