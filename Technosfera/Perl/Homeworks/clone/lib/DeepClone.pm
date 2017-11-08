@@ -35,30 +35,45 @@ use warnings;
 =cut
 
 sub clone {
-	my $orig = shift;
-	my $tCheck = ref $orig;
+	my %seen;
 	my $bad;
-	my $res;
-	if ($tCheck eq 'ARRAY'){
-		my @arr = @$orig;
-		for my $el (@arr) {
-			$el = clone($el);
+	my $clone1;
+	$clone1 = sub {
+		my $orig = shift;
+		if ((defined $orig) && (exists $seen{$orig})) {
+			return $seen{$orig};
 		}
-		$res = \@arr;
-	}		
-	elsif ($tCheck eq 'HASH'){
-		my %hash = %$orig;
-		for my $el (keys %hash) {
-			$hash{$el} = clone($hash{$el});
+		my $tCheck = ref $orig;
+		if ($tCheck eq 'ARRAY'){
+			my @arr = @$orig;
+			$seen{$orig} = \@arr;
+			for my $el (@arr) {
+				$el = $clone1 -> ($el);
+				if ($bad){
+					last;
+				}
+			}
+			return \@arr;
+		}		
+		elsif ($tCheck eq 'HASH'){
+			my %hash = %$orig;
+			$seen{$orig} = \%hash;
+			for my $el (keys %hash) {
+				$hash{$el} = $clone1 -> ($hash{$el});
+                if ($bad){
+					last;
+				}
+			}
+			return \%hash;
+		}		
+		elsif ($tCheck eq "") {
+			return $orig;
 		}
-		$res = \%hash;
-	}		
-	elsif ($tCheck eq "") {
-		$res = $orig;
-	}
-	else {
-		$bad = 1;
-	}
+		else {
+			$bad = 1;
+		}
+	};
+	my $res = $clone1 -> (shift);
 	return ($bad) ? undef : $res;
 }
 
